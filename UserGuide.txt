@@ -1,0 +1,60 @@
+User Guide for HaploShare (v1.01)
+please contact me if you have any problems (jonsonfox@gmail.com)
+
+For quick test, please type:  HaploShare -file 300test -ch 1 -perm 100 -cut 1 -out test
+
+Outline
+I.	System requirement  
+II.	Input file format
+III.	Output file format
+IV.	Data preparation process
+V.	Effective commend
+VI.	Updates
+
+
+I.	System requirement  
+	Current version of HaploShare only supports windows system (better for 64bit windows 7 ). 
+	The minimum memory required is 4GB (500 samples) and 8GB is recommended (1000 samples) 
+	Make sure that perl is installed and added into the system default path.
+	Make sure that PLINK is installed and added into the system default path.
+
+II.	Input file format
+	The input file format is the binary plink format, including
+		.bim file	(map file)
+		.bed file	(binary genotype file)
+		.fam file	(sample information file, including case and controls)
+III.	Only one output file will be generated. Each line describing the details of a IBD sharing region as follows.
+		chromosome			
+		number of samples in this IBD region
+		physical length of the region (by kb)
+		first position of the IBD region (start of partially shared region,please refer to the paper.) (by bp)
+		last position of the IBD region]
+		number of SNPs in the IBD region
+		permutated P value
+		order of the samples share this IBD region. (1,2,3...n, n=sample size).
+		first and last SNP index of each samples in the IBD region
+		sharing haplotype of the IBD region (by SNP, 0 for common SNP and 1 for rare SNP, blocks are separated by "|", "-" are the SNPs between blocks)
+		frequency for the sharing haplotype in the IBD region.
+		start and end position of shared haplotype for each sample in the region.
+
+IV.	Data preparation process
+		The input data should be prepared by the following process
+		1	perl to22.pl -i yourfilename				// all the data will be separated into single chromosomes. It will be easy for pararellel analysis.
+											//*(if the data is in only one chromosome, please omit this step. The testing data is only chromosome 1.)
+		2	PhaseToBlockFrequency -i yourfilename	//phasing precedure
+
+V.	Effective commend
+		The main program (HaploShare.exe) have the following commends:
+		-file		input file name (without file format extensions)
+		-chr		chromosome index, from 1 to 22, type "all" if analysing all the chromosomes
+		-perm	number of permutation process (defult 1000)
+		-cut		length cutoff for pairwise IBD detection (defult 1 cM)
+		-out		output file name
+
+		exmple:
+
+		HaploShare -file 300test -ch 1 -perm 100 -cut 1 -out test
+
+VI.	Updates
+		source code for the main program "HaploShare was released in 15th Sep. 2012".
+		souce code for the appendant program "PhaseToBlockFrequency" will be released soon.
