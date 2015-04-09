@@ -24,6 +24,7 @@ II.	Input file format
 		.bed file	(binary genotype file)
 		.fam file	(sample information file, including case and controls)
 III.	Only one output file will be generated. Each line describing the details of a IBD sharing region as follows.
+		quasi-p value
 		chromosome			
 		number of samples in this IBD region
 		physical length of the region (by kb)
